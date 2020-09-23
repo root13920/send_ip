@@ -2,7 +2,7 @@
 import socket
 import time
 import smtplib
-import urllib
+import urllib.request
 from email import encoders
 from email.header import Header
 from email.utils import parseaddr,formataddr
@@ -20,7 +20,7 @@ def sendEmail():#发送邮件
     msg=MIMEText('主人，我的IP是:'+ip_adress+'，要记牢哦','plain','utf-8')
     msg['From']=_format_addr('raspberry pi mode 3<%s>'%from_addr)
     msg['To']=_format_addr('admin<%s>'%to_addr)
-    msg['Subject']=Header('来自您的树莓派3B','utf-8').encode()
+    msg['Subject']=Header('来自您的树莓派4B','utf-8').encode()
     
     server=smtplib.SMTP(smtp_server,25)
     server.set_debuglevel(1)
@@ -31,13 +31,13 @@ def sendEmail():#发送邮件
 def check_network():#检测网络的连通性
     while True:
         try:
-            result=urllib.urlopen('http://baidu.com').read()
-            print result
-            print "Network is Ready!"
+            result=urllib.request.urlopen('http://baidu.com').read()
+            print (result)
+            print ("Network is Ready!")
             break
-        except Exception,e:
-            print e
-            print "NEtwork is not ready,Sleep 5S..."
+        except Exception as e:
+            print (e)
+            print ("NEtwork is not ready,Sleep 5S...")
             time.sleep(5)
     return True
 
